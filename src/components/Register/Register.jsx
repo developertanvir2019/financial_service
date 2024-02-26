@@ -21,16 +21,24 @@ const Register = () => {
   const navigate = useNavigate();
   const handleRegistrationSubmit = (e) => {
     e.preventDefault();
+    // password validation
+    const { password } = registrationData;
+    const pinRegex = /^\d{5}$/;
+    if (!pinRegex.test(password)) {
+      Swal.fire(
+        "Invalid Password",
+        "Password must be 5-digit PIN Number.",
+        "error"
+      );
+      return;
+    }
+
     axios
-      .post(
-        "https://city-server-cwdm.onrender.com/api/user/signup",
-        registrationData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      )
+      .post("http://localhost:5000/api/user/signup", registrationData, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
       .then((response) => {
         const data = response.data;
         if (data?.message) {
@@ -50,49 +58,32 @@ const Register = () => {
     <div className="flex justify-center">
       <form
         onSubmit={handleRegistrationSubmit}
-        className=" mt-10 sm:w-72 md:w-96 lg:w-96 overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200"
+        className=" mt-10 pb-6 w-full md:w-96  overflow-hidden rounded bg-white text-slate-500 shadow-md shadow-slate-200"
       >
         {/*  <!-- Body--> */}
         <div className="p-6">
           <header className="mb-4 text-center">
-            <h3 className="text-2xl font-medium text-slate-700 ">
+            <span className="text-2xl font-medium text-slate-700 border-b-[1.5px] border-primary pb-1">
               Register Now
-            </h3>
+            </span>
           </header>
-          <div className="flex flex-col space-y-8">
+          <div className="flex flex-col space-y-6">
             {/*      <!-- Input field --> */}
             <div className="relative my-2">
               <input
                 required
                 onChange={handleInputChange}
-                id="firstName"
+                id="fullName"
                 type="text"
-                name="firstName"
-                placeholder="your first name"
+                name="fullName"
+                placeholder="your Full name"
                 className="peer relative h-10 bg-transparent w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
               />
               <label
-                htmlFor="firstName"
+                htmlFor="fullName"
                 className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
               >
-                Your First Name
-              </label>
-            </div>
-            <div className="relative my-2">
-              <input
-                required
-                onChange={handleInputChange}
-                id="lastName"
-                type="text"
-                name="lastName"
-                placeholder="your last name"
-                className="peer relative h-10 bg-transparent w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
-              />
-              <label
-                htmlFor="lastName"
-                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
-              >
-                Last Name
+                Your Full Name
               </label>
             </div>
             <div className="relative my-2">
@@ -112,6 +103,59 @@ const Register = () => {
                 Your email
               </label>
             </div>
+            <div className="relative my-2">
+              <input
+                required
+                onChange={handleInputChange}
+                id="phone"
+                type="number"
+                name="phone"
+                placeholder="your phone number"
+                className="peer relative h-10 bg-transparent w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+              />
+              <label
+                htmlFor="phone"
+                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+              >
+                Your phone number
+              </label>
+            </div>
+            <div className="relative my-2">
+              <select
+                required
+                onChange={handleInputChange}
+                id="role"
+                name="role"
+                className="peer relative h-10 bg-transparent w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+              >
+                <option value="user">User</option>
+                <option value="agent">Agent</option>
+              </select>
+              <label
+                htmlFor="role"
+                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+              >
+                Select Role
+              </label>
+            </div>
+            <div className="relative my-2">
+              <input
+                required
+                onChange={handleInputChange}
+                id="nid"
+                type="number"
+                name="nid"
+                placeholder="your NID number"
+                className="peer relative h-10 bg-transparent w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+              />
+              <label
+                htmlFor="nid"
+                className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+              >
+                Your NID number
+              </label>
+            </div>
+
             {/*      <!-- Input field --> */}
             <div className="relative my-2">
               <input
