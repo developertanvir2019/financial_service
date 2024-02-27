@@ -3,6 +3,7 @@ import useRole from "../../hooks/UseRole";
 import CashOut from "./User/CashOut";
 import SendMoney from "./User/SendMoney";
 import CashIn from "./agent/CashIn";
+import RechargeReq from "./agent/RechargeReq";
 
 const Home = () => {
   const { balance, role } = useRole();
@@ -63,7 +64,7 @@ const Home = () => {
             </div>
             <div className="flex justify-between gap-3  w-full">
               <CashIn />
-              {/* <CashOut /> */}
+              <RechargeReq />
             </div>
           </div>
         ) : // end agent
