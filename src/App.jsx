@@ -5,7 +5,7 @@ import { router } from "./routes/router";
 function App() {
   return (
     <div className="flex justify-center">
-      <div style={{ maxWidth: "1280px" }} className="w-full bg-[#EBECF0]">
+      <div style={{ maxWidth: "1280px" }} className="w-full bg-white">
         <RouterProvider router={router}></RouterProvider>
       </div>
     </div>

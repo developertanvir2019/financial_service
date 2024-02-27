@@ -47,7 +47,7 @@ const Login = () => {
     <div className="flex justify-center">
       <form
         onSubmit={handleLoginSubmit}
-        className=" mt-10 pb-6 w-full md:w-96 overflow-hidden bg-white rounded-md text-slate-500 shadow-md shadow-slate-200"
+        className=" my-10 pb-6 w-full md:w-96 overflow-hidden bg-white rounded-md text-slate-500 shadow-md shadow-slate-200"
       >
         {/*  <!-- Body--> */}
         <div className="p-6">
