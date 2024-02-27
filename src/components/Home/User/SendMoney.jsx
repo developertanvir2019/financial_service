@@ -1,9 +1,58 @@
-import { useState } from "react";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
+import { useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 const SendMoney = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const openModal = () => {
     setModalOpen(true);
+  };
+
+  //   send money
+  const [data, setData] = useState({
+    receiverPhone: "",
+    senderPhone: "",
+    amount: "",
+  });
+  useEffect(() => {
+    const token = localStorage.getItem("jwtToken");
+    if (token) {
+      const decodedToken = jwtDecode(token);
+      setData((prevData) => ({
+        ...prevData,
+        senderPhone: decodedToken?.phone,
+      }));
+    }
+  }, []);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+  const handleLoginSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:5000/api/transition/add", data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        const data = response.data;
+        if (data) {
+          Swal.fire("Congratulations!!!", "Send money success", "success");
+          //   navigate("/");
+        } else {
+          Swal.fire("Send Mony Failed", response.error, "error");
+        }
+      })
+      .catch((error) => {
+        Swal.fire("Send Mony Failed", error.response.data.error, "error");
+      });
   };
   return (
     <>
@@ -58,7 +107,65 @@ const SendMoney = () => {
 
             {/* main part */}
 
-            <div></div>
+            <div>
+              <h3 className="text-2xl font-medium text-secondary text-center">
+                Send Money To User
+              </h3>
+              <div>
+                <form
+                  onSubmit={handleLoginSubmit}
+                  className="px-6 my-10 pb-6 w-full md:w-96 overflow-hidden bg-white rounded-md text-slate-500 shadow-md shadow-slate-200"
+                >
+                  {/*  <!-- Body--> */}
+                  <div className="flex flex-col space-y-8">
+                    {/*      <!-- Input field --> */}
+                    <div className="relative mt-6">
+                      <input
+                        onChange={handleInputChange}
+                        required
+                        id="receiverPhone"
+                        type="text"
+                        name="receiverPhone"
+                        placeholder="Receiver phone number"
+                        className="peer relative h-10 bg-white w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                      />
+                      <label
+                        htmlFor="receiverPhone"
+                        className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+                      >
+                        Receiver Phone number
+                      </label>
+                    </div>
+                    <div className="relative mt-6">
+                      <input
+                        onChange={handleInputChange}
+                        required
+                        id="amount"
+                        type="number"
+                        name="amount"
+                        placeholder="amount"
+                        className="peer relative h-10 bg-white w-full rounded border border-slate-200 px-4 text-sm text-slate-500 placeholder-transparent outline-none transition-all autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400"
+                      />
+                      <label
+                        htmlFor="amount"
+                        className="absolute left-2 -top-2 z-[1] px-2 text-xs text-slate-400 transition-all before:absolute before:top-0 before:left-0 before:z-[-1] before:block before:h-full before:w-full before:bg-white before:transition-all peer-placeholder-shown:top-2.5 peer-placeholder-shown:text-sm peer-required:after:text-pink-500 peer-required:after:content-['\00a0*'] peer-invalid:text-pink-500 peer-focus:-top-2 peer-focus:text-xs peer-focus:text-emerald-500 peer-invalid:peer-focus:text-pink-500 peer-disabled:cursor-not-allowed peer-disabled:text-slate-400 peer-disabled:before:bg-transparent"
+                      >
+                        amount
+                      </label>
+                    </div>
+                  </div>
+                  {/*  <!-- Action base sized basic button --> */}
+                  <div className="flex justify-end py-6 ">
+                    <button
+                      type="submit"
+                      className="inline-flex h-10 w-full items-center justify-center gap-2 whitespace-nowrap rounded bg-primary px-5 text-sm font-medium tracking-wide text-white transition duration-300 hover:bg-emerald-600 focus:bg-emerald-700 focus-visible:outline-none disabled:cursor-not-allowed disabled:border-emerald-300 disabled:bg-emerald-300 disabled:shadow-none"
+                    >
+                      <span>Send Money</span>
+                    </button>
+                  </div>
+                </form>
+              </div>
+            </div>
           </div>
         </div>
       )}

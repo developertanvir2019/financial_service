@@ -6,7 +6,8 @@ import axios from "axios";
 const Register = () => {
   const [showPass, setShowPass] = useState(true);
   const [registrationData, setRegistrationData] = useState({
-    firstName: "",
+    fullName: "",
+    role: "user",
     lastName: "",
     email: "",
     password: "",
@@ -21,6 +22,7 @@ const Register = () => {
   const navigate = useNavigate();
   const handleRegistrationSubmit = (e) => {
     e.preventDefault();
+    console.log(registrationData);
     // password validation
     const { password } = registrationData;
     const pinRegex = /^\d{5}$/;
