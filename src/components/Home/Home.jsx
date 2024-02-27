@@ -9,7 +9,7 @@ const Home = () => {
     <div className="flex justify-center my-12">
       <div className="w-96 bg-gray-200 ">
         <div>
-          <div className="flex justify-between w-full">
+          <div className="flex justify-between gap-3 w-full">
             <SendMoney />
             <CashOut />
           </div>
