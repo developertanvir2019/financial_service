@@ -7,7 +7,7 @@ const AgentRequest = () => {
   const handleAddTransaction = async (id) => {
     try {
       await axios.post(
-        `http://localhost:5000/api/balance/transaction-and-delete/${id}`
+        `https://financial-backend-n1dz.onrender.com/api/balance/transaction-and-delete/${id}`
       );
       // Update state to remove the balance record from UI
       Swal.fire(
@@ -24,7 +24,7 @@ const AgentRequest = () => {
     const fetchTotalBalance = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/balance/all"
+          "https://financial-backend-n1dz.onrender.com/api/balance/all"
         );
         setAgents(response.data.balances);
       } catch (error) {

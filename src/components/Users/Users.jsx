@@ -32,12 +32,15 @@ const Users = () => {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await axios.get("http://localhost:5000/api/user/all", {
-          params: {
-            role: currentNav,
-            phone: searchText,
-          },
-        });
+        const response = await axios.get(
+          "https://financial-backend-n1dz.onrender.com/api/user/all",
+          {
+            params: {
+              role: currentNav,
+              phone: searchText,
+            },
+          }
+        );
         setUsers(response.data.users);
       } catch (error) {
         // Handle errors, such as network error or server error

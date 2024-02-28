@@ -23,7 +23,7 @@ const useRole = () => {
       const fetchRole = async () => {
         try {
           const response = await axios.get(
-            `http://localhost:5000/api/user/getUser/${userId}`
+            `https://financial-backend-n1dz.onrender.com/api/user/getUser/${userId}`
           );
           setRole(response.data.role);
           setBalance(response.data.balance);

@@ -14,7 +14,7 @@ const User = ({ user, setRerender }) => {
 
       // Make PUT request to approve user
       const response = await axios.put(
-        `http://localhost:5000/api/user/approve/${userId}`
+        `https://financial-backend-n1dz.onrender.com/api/user/approve/${userId}`
       );
 
       if (response.data.message) {
@@ -34,7 +34,7 @@ const User = ({ user, setRerender }) => {
 
       // Make PUT request to approve user
       const response = await axios.put(
-        `http://localhost:5000/api/user/block/${userId}`
+        `https://financial-backend-n1dz.onrender.com/api/user/block/${userId}`
       );
 
       if (response.data.message) {

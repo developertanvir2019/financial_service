@@ -12,7 +12,7 @@ const TransitionModal = ({ setSidebarOpen, data }) => {
         setLoading(true);
         // Fetch transitions based on sender or receiver number
         const response = await axios.get(
-          `http://localhost:5000/api/transition/transitions?number=${data?.phone}`
+          `https://financial-backend-n1dz.onrender.com/api/transition/transitions?number=${data?.phone}`
         );
         setTransitions(response.data.transitions);
       } catch (error) {

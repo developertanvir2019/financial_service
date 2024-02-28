@@ -37,11 +37,15 @@ const Register = () => {
     }
 
     axios
-      .post("http://localhost:5000/api/user/signup", registrationData, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post(
+        "https://financial-backend-n1dz.onrender.com/api/user/signup",
+        registrationData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((response) => {
         const data = response.data;
         if (data?.message) {

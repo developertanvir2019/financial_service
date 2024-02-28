@@ -35,11 +35,15 @@ const RechargeReq = () => {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/api/balance/add", data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
+      .post(
+        "https://financial-backend-n1dz.onrender.com/api/balance/add",
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      )
       .then((response) => {
         const data = response.data;
         if (data) {

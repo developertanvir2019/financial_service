@@ -36,7 +36,7 @@ const AddMoneyToAgent = () => {
   const handleLoginSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:5000/api/transition/addMoney", data, {
+      .post("https://financial-backend-n1dz.onrender.com/api/transition/addMoney", data, {
         headers: {
           "Content-Type": "application/json",
         },

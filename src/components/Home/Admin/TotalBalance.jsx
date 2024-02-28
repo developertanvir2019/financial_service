@@ -8,7 +8,7 @@ const TotalBalance = () => {
     const fetchTotalBalance = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:5000/api/user/totalBalance"
+          "https://financial-backend-n1dz.onrender.com/api/user/totalBalance"
         );
         setTotalBalance(response.data.totalBalance);
       } catch (error) {

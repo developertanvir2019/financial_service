@@ -23,7 +23,7 @@ const UserTransitions = () => {
         if (phone) {
           // Fetch transitions based on sender or receiver number
           const response = await axios.get(
-            `http://localhost:5000/api/transition/transitions?number=${phone}`
+            `https://financial-backend-n1dz.onrender.com/api/transition/transitions?number=${phone}`
           );
           setTransitions(response.data.transitions);
         }
