@@ -6,6 +6,7 @@ import Login from "../components/Login/Login";
 import Register from "../components/Register/Register";
 import PrivateRoute from "./PrivateRoute";
 import Users from "../components/Users/Users";
+import UserTransitions from "../components/UserTransitions/UserTransitions";
 
 export const router = createBrowserRouter([
   {
@@ -30,7 +31,19 @@ export const router = createBrowserRouter([
       },
       {
         path: "/users",
-        element: <Users />,
+        element: (
+          <PrivateRoute>
+            <Users />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/transitions",
+        element: (
+          <PrivateRoute>
+            <UserTransitions />
+          </PrivateRoute>
+        ),
       },
       {
         path: "/register",

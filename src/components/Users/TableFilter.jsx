@@ -26,7 +26,7 @@ const TableFilter = ({
               </span>
             </li>
             <li
-              onClick={() => setCurrentNav("Users")}
+              onClick={() => setCurrentNav("User")}
               className={`cursor-pointer pb-2 px-1 flex gap-2${
                 currentNav === "Users"
                   ? " border-b-[0.2rem] font-medium  border-slate-800 "

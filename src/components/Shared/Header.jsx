@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import useRole from "../../hooks/UseRole";
 
 const Header = () => {
   const [activeNav, setActiveNav] = useState("/");
+  const { role } = useRole();
+  console.log(role);
   const handleLogout = () => {
     localStorage.removeItem("jwtToken");
     window.location.href = "/login";
@@ -24,7 +27,14 @@ const Header = () => {
             onClick={() => setActiveNav("/users")}
             to="/users"
           >
-            Users
+            {role == "admin" && "Users"}
+          </Link>
+          <Link
+            className={activeNav === "/transitions" && "text-gray-300"}
+            onClick={() => setActiveNav("/transitions")}
+            to="/transitions"
+          >
+            Transitions
           </Link>
         </div>
         <button onClick={() => handleLogout()} className="px-3 py-2 bg-primary">
