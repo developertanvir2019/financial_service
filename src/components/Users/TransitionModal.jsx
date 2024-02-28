@@ -44,7 +44,7 @@ const TransitionModal = ({ setSidebarOpen, data }) => {
         {/* main part */}
         {transitions?.length > 0 ? (
           <div>
-            <table className="w-full overflow-scroll text-left border border-collapse rounded sm:border-separate border-slate-200">
+            <table className="w-full overflow-x-scroll text-left border border-collapse rounded sm:border-separate border-slate-200">
               <tbody>
                 <tr>
                   <th
